@@ -54,7 +54,6 @@ const SLIDE_TITLES = [
 ];
 function PresenterPage() {
     const [mode, setMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("setup");
-    const [apiKey, setApiKey] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
     const [currentSlide, setCurrentSlide] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     const [isPlaying, setIsPlaying] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isSpeaking, setIsSpeaking] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -76,7 +75,7 @@ function PresenterPage() {
     const isDemoSlide = (index)=>index in DEMO_SLIDES;
     const totalSlides = NARRATIONS.length;
     // Speak text using Web Speech Synthesis
-    const speak = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((text, rate = 1.25)=>{
+    const speak = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((text, rate = 1.1)=>{
         return new Promise((resolve)=>{
             window.speechSynthesis.cancel();
             const utterance = new SpeechSynthesisUtterance(text);
@@ -127,9 +126,9 @@ function PresenterPage() {
         for(let i = currentSlide; i < totalSlides; i++){
             goToSlide(i);
             setStatusText(`スライド ${i + 1}/${totalSlides}: ${SLIDE_TITLES[i]}`);
-            await speak(NARRATIONS[i], 1.25);
-            // Brief pause between slides
-            await new Promise((r)=>setTimeout(r, 800));
+            await speak(NARRATIONS[i], 1.1);
+            // Pause between slides
+            await new Promise((r)=>setTimeout(r, 1500));
         }
         setIsPlaying(false);
         setStatusText("プレゼン完了 — 質疑応答モードに切り替えできます");
@@ -158,8 +157,7 @@ function PresenterPage() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    question,
-                    apiKey
+                    question
                 })
             });
             const data = await res.json();
@@ -186,7 +184,6 @@ function PresenterPage() {
             setIsProcessing(false);
         }
     }, [
-        apiKey,
         speak
     ]);
     // Start speech recognition
@@ -268,7 +265,7 @@ function PresenterPage() {
                     children: "🛡"
                 }, void 0, false, {
                     fileName: "[project]/src/app/presenter/page.tsx",
-                    lineNumber: 273,
+                    lineNumber: 272,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -280,7 +277,7 @@ function PresenterPage() {
                     children: "SecureHub Presenter"
                 }, void 0, false, {
                     fileName: "[project]/src/app/presenter/page.tsx",
-                    lineNumber: 274,
+                    lineNumber: 273,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -291,7 +288,7 @@ function PresenterPage() {
                     children: "リアルタイムプレゼン & 質疑応答システム"
                 }, void 0, false, {
                     fileName: "[project]/src/app/presenter/page.tsx",
-                    lineNumber: 283,
+                    lineNumber: 282,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -302,125 +299,65 @@ function PresenterPage() {
                         width: "500px",
                         border: "1px solid rgba(59, 130, 246, 0.3)"
                     },
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                            style: {
-                                display: "block",
-                                marginBottom: "0.5rem",
-                                fontSize: "0.9rem",
-                                color: "#94a3b8"
-                            },
-                            children: "Claude API Key（質疑応答用・Haiku使用で低コスト）"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/presenter/page.tsx",
-                            lineNumber: 296,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                            type: "password",
-                            value: apiKey,
-                            onChange: (e)=>setApiKey(e.target.value),
-                            placeholder: "sk-ant-...",
-                            style: {
-                                width: "100%",
-                                padding: "12px 16px",
-                                borderRadius: "8px",
-                                border: "1px solid rgba(59, 130, 246, 0.3)",
-                                background: "rgba(15, 23, 42, 0.8)",
-                                color: "#e2e8f0",
-                                fontSize: "1rem",
-                                marginBottom: "1rem",
-                                boxSizing: "border-box"
-                            }
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/presenter/page.tsx",
-                            lineNumber: 306,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            style: {
-                                fontSize: "0.75rem",
-                                color: "#64748b",
-                                marginBottom: "1.5rem"
-                            },
-                            children: "※ APIキーはブラウザ内のみで使用し、サーバーに保存されません"
-                        }, void 0, false, {
-                            fileName: "[project]/src/app/presenter/page.tsx",
-                            lineNumber: 323,
-                            columnNumber: 11
-                        }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            style: {
-                                display: "flex",
-                                gap: "12px"
-                            },
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>{
-                                        if (!apiKey) {
-                                            alert("APIキーを入力してください");
-                                            return;
-                                        }
-                                        setMode("presentation");
-                                    },
-                                    style: {
-                                        flex: 1,
-                                        padding: "14px",
-                                        borderRadius: "10px",
-                                        border: "none",
-                                        background: "linear-gradient(135deg, #1e40af 0%, #06b6d4 100%)",
-                                        color: "#fff",
-                                        fontSize: "1rem",
-                                        fontWeight: 700,
-                                        cursor: "pointer"
-                                    },
-                                    children: "▶ プレゼン開始"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/presenter/page.tsx",
-                                    lineNumber: 334,
-                                    columnNumber: 13
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>{
-                                        if (!apiKey) {
-                                            alert("APIキーを入力してください");
-                                            return;
-                                        }
-                                        setMode("qa");
-                                    },
-                                    style: {
-                                        flex: 1,
-                                        padding: "14px",
-                                        borderRadius: "10px",
-                                        border: "1px solid #06b6d4",
-                                        background: "transparent",
-                                        color: "#22d3ee",
-                                        fontSize: "1rem",
-                                        fontWeight: 700,
-                                        cursor: "pointer"
-                                    },
-                                    children: "🎤 質疑応答のみ"
-                                }, void 0, false, {
-                                    fileName: "[project]/src/app/presenter/page.tsx",
-                                    lineNumber: 357,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/src/app/presenter/page.tsx",
-                            lineNumber: 333,
-                            columnNumber: 11
-                        }, this)
-                    ]
-                }, void 0, true, {
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            display: "flex",
+                            gap: "12px"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setMode("presentation"),
+                                style: {
+                                    flex: 1,
+                                    padding: "14px",
+                                    borderRadius: "10px",
+                                    border: "none",
+                                    background: "linear-gradient(135deg, #1e40af 0%, #06b6d4 100%)",
+                                    color: "#fff",
+                                    fontSize: "1rem",
+                                    fontWeight: 700,
+                                    cursor: "pointer"
+                                },
+                                children: "▶ プレゼン開始"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/presenter/page.tsx",
+                                lineNumber: 296,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setMode("qa"),
+                                style: {
+                                    flex: 1,
+                                    padding: "14px",
+                                    borderRadius: "10px",
+                                    border: "1px solid #06b6d4",
+                                    background: "transparent",
+                                    color: "#22d3ee",
+                                    fontSize: "1rem",
+                                    fontWeight: 700,
+                                    cursor: "pointer"
+                                },
+                                children: "🎤 質疑応答のみ"
+                            }, void 0, false, {
+                                fileName: "[project]/src/app/presenter/page.tsx",
+                                lineNumber: 313,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/src/app/presenter/page.tsx",
+                        lineNumber: 295,
+                        columnNumber: 11
+                    }, this)
+                }, void 0, false, {
                     fileName: "[project]/src/app/presenter/page.tsx",
-                    lineNumber: 287,
+                    lineNumber: 286,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/presenter/page.tsx",
-            lineNumber: 261,
+            lineNumber: 260,
             columnNumber: 7
         }, this);
     }
@@ -448,19 +385,21 @@ function PresenterPage() {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("iframe", {
                             ref: iframeRef,
                             src: isDemoSlide(currentSlide) ? DEMO_SLIDES[currentSlide] : `/presentation/demo_presentation_v2.html#/${currentSlide}`,
+                            tabIndex: -1,
                             style: {
                                 width: "100%",
                                 height: "100%",
-                                border: "none"
+                                border: "none",
+                                pointerEvents: mode === "qa" ? "none" : "auto"
                             }
                         }, void 0, false, {
                             fileName: "[project]/src/app/presenter/page.tsx",
-                            lineNumber: 399,
+                            lineNumber: 349,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/presenter/page.tsx",
-                        lineNumber: 398,
+                        lineNumber: 348,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -480,7 +419,7 @@ function PresenterPage() {
                                 children: "◀"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 422,
+                                lineNumber: 374,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -496,7 +435,7 @@ function PresenterPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 429,
+                                lineNumber: 381,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -506,7 +445,7 @@ function PresenterPage() {
                                 children: "▶"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 434,
+                                lineNumber: 386,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -517,7 +456,7 @@ function PresenterPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 444,
+                                lineNumber: 396,
                                 columnNumber: 11
                             }, this),
                             !isPlaying ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -526,7 +465,7 @@ function PresenterPage() {
                                 children: "▶ 再生"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 454,
+                                lineNumber: 406,
                                 columnNumber: 13
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: stopPresentation,
@@ -537,7 +476,7 @@ function PresenterPage() {
                                 children: "⏹ 停止"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 458,
+                                lineNumber: 410,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -547,7 +486,7 @@ function PresenterPage() {
                                 children: "🔊 このスライド"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 467,
+                                lineNumber: 419,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -558,7 +497,7 @@ function PresenterPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 475,
+                                lineNumber: 427,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -573,7 +512,7 @@ function PresenterPage() {
                                 children: mode === "qa" ? "📊 プレゼンモード" : "🎤 質疑応答モード"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 484,
+                                lineNumber: 436,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -585,19 +524,19 @@ function PresenterPage() {
                                 children: statusText
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 501,
+                                lineNumber: 453,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/presenter/page.tsx",
-                        lineNumber: 411,
+                        lineNumber: 363,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/presenter/page.tsx",
-                lineNumber: 396,
+                lineNumber: 346,
                 columnNumber: 7
             }, this),
             mode === "qa" && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -625,7 +564,7 @@ function PresenterPage() {
                                 children: "🎤 質疑応答"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 531,
+                                lineNumber: 483,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -637,13 +576,13 @@ function PresenterPage() {
                                 children: "マイクで質問 or テキスト入力"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 541,
+                                lineNumber: 493,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/presenter/page.tsx",
-                        lineNumber: 525,
+                        lineNumber: 477,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -675,7 +614,7 @@ function PresenterPage() {
                                                     children: "Q:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/presenter/page.tsx",
-                                                    lineNumber: 570,
+                                                    lineNumber: 522,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -687,13 +626,13 @@ function PresenterPage() {
                                                     children: qa.question
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/presenter/page.tsx",
-                                                    lineNumber: 579,
+                                                    lineNumber: 531,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/presenter/page.tsx",
-                                            lineNumber: 562,
+                                            lineNumber: 514,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -713,7 +652,7 @@ function PresenterPage() {
                                                     children: "A:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/presenter/page.tsx",
-                                                    lineNumber: 597,
+                                                    lineNumber: 549,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -726,19 +665,19 @@ function PresenterPage() {
                                                     children: qa.answer
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/presenter/page.tsx",
-                                                    lineNumber: 606,
+                                                    lineNumber: 558,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/presenter/page.tsx",
-                                            lineNumber: 589,
+                                            lineNumber: 541,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, i, true, {
                                     fileName: "[project]/src/app/presenter/page.tsx",
-                                    lineNumber: 561,
+                                    lineNumber: 513,
                                     columnNumber: 15
                                 }, this)),
                             isProcessing && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -755,7 +694,7 @@ function PresenterPage() {
                                         children: "⏳"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/presenter/page.tsx",
-                                        lineNumber: 621,
+                                        lineNumber: 573,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -766,19 +705,19 @@ function PresenterPage() {
                                         children: "回答を生成中..."
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/presenter/page.tsx",
-                                        lineNumber: 624,
+                                        lineNumber: 576,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 620,
+                                lineNumber: 572,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/presenter/page.tsx",
-                        lineNumber: 553,
+                        lineNumber: 505,
                         columnNumber: 11
                     }, this),
                     transcript && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -799,12 +738,12 @@ function PresenterPage() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/presenter/page.tsx",
-                            lineNumber: 640,
+                            lineNumber: 592,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/presenter/page.tsx",
-                        lineNumber: 633,
+                        lineNumber: 585,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -842,7 +781,7 @@ function PresenterPage() {
                                 children: "🎤"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 658,
+                                lineNumber: 610,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -867,7 +806,7 @@ function PresenterPage() {
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 689,
+                                lineNumber: 641,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -885,19 +824,19 @@ function PresenterPage() {
                                 children: "送信"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/presenter/page.tsx",
-                                lineNumber: 712,
+                                lineNumber: 664,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/presenter/page.tsx",
-                        lineNumber: 649,
+                        lineNumber: 601,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/presenter/page.tsx",
-                lineNumber: 515,
+                lineNumber: 467,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("style", {
@@ -910,13 +849,13 @@ function PresenterPage() {
       `
             }, void 0, false, {
                 fileName: "[project]/src/app/presenter/page.tsx",
-                lineNumber: 732,
+                lineNumber: 684,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/presenter/page.tsx",
-        lineNumber: 387,
+        lineNumber: 337,
         columnNumber: 5
     }, this);
 }

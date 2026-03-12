@@ -100,12 +100,20 @@ Next.js + TypeScript + PostgreSQL + Redis + Claude API
 回答は簡潔に、プレゼンの質疑応答にふさわしいトーンで答えてください。日本語で回答してください。1-3文程度で簡潔に。`;
 async function POST(request) {
     try {
-        const { question, apiKey } = await request.json();
-        if (!question || !apiKey) {
+        const { question } = await request.json();
+        if (!question) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
-                error: "question and apiKey are required"
+                error: "question is required"
             }, {
                 status: 400
+            });
+        }
+        const apiKey = process.env.ANTHROPIC_API_KEY;
+        if (!apiKey) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: "ANTHROPIC_API_KEY environment variable is not set"
+            }, {
+                status: 500
             });
         }
         const client = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$anthropic$2d$ai$2f$sdk$2f$client$2e$mjs__$5b$app$2d$route$5d$__$28$ecmascript$29$__$3c$export__Anthropic__as__default$3e$__["default"]({

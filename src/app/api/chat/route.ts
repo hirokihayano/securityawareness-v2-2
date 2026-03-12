@@ -49,12 +49,20 @@ Next.js + TypeScript + PostgreSQL + Redis + Claude API
 
 export async function POST(request: NextRequest) {
   try {
-    const { question, apiKey } = await request.json();
+    const { question } = await request.json();
 
-    if (!question || !apiKey) {
+    if (!question) {
       return NextResponse.json(
-        { error: "question and apiKey are required" },
+        { error: "question is required" },
         { status: 400 }
+      );
+    }
+
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: "ANTHROPIC_API_KEY environment variable is not set" },
+        { status: 500 }
       );
     }
 

@@ -33,12 +33,17 @@
 ```bash
 # 依存パッケージのインストール
 npm install
-
-# 環境変数の設定
-cp .env.example .env
-# .env ファイルに Claude API キーを設定
-# CLAUDE_API="your-api-key"
 ```
+
+### 環境変数の設定
+
+プロジェクトルートに `.env` ファイルを作成し、Claude API キーを設定してください。
+
+```bash
+CLAUDE_API="sk-ant-xxxxx"
+```
+
+> **注意:** `CLAUDE_API` が未設定の場合、プレゼンターの質疑応答機能がエラーになります。
 
 ### 起動
 
@@ -69,7 +74,7 @@ src/
 ├── data/
 │   └── mock.ts              # モックデータ
 docs/                        # ビジネス分析ドキュメント
-presentation/                # プレゼン資料・音声ファイル
+public/presentation/         # プレゼンスライドHTML
 ```
 
 ## 開発ロードマップ

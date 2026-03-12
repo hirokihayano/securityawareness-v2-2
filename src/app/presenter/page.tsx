@@ -57,7 +57,6 @@ interface QAEntry {
 
 export default function PresenterPage() {
   const [mode, setMode] = useState<Mode>("setup");
-  const [apiKey, setApiKey] = useState("");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -79,7 +78,7 @@ export default function PresenterPage() {
   const totalSlides = NARRATIONS.length;
 
   // Speak text using Web Speech Synthesis
-  const speak = useCallback((text: string, rate: number = 1.25): Promise<void> => {
+  const speak = useCallback((text: string, rate: number = 1.1): Promise<void> => {
     return new Promise((resolve) => {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
@@ -136,9 +135,9 @@ export default function PresenterPage() {
     for (let i = currentSlide; i < totalSlides; i++) {
       goToSlide(i);
       setStatusText(`スライド ${i + 1}/${totalSlides}: ${SLIDE_TITLES[i]}`);
-      await speak(NARRATIONS[i], 1.25);
-      // Brief pause between slides
-      await new Promise((r) => setTimeout(r, 800));
+      await speak(NARRATIONS[i], 1.1);
+      // Pause between slides
+      await new Promise((r) => setTimeout(r, 1500));
     }
     setIsPlaying(false);
     setStatusText("プレゼン完了 — 質疑応答モードに切り替えできます");
@@ -164,7 +163,7 @@ export default function PresenterPage() {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ question, apiKey }),
+          body: JSON.stringify({ question }),
         });
 
         const data = await res.json();
@@ -187,7 +186,7 @@ export default function PresenterPage() {
         setIsProcessing(false);
       }
     },
-    [apiKey, speak]
+    [speak]
   );
 
   // Start speech recognition
@@ -293,52 +292,9 @@ export default function PresenterPage() {
             border: "1px solid rgba(59, 130, 246, 0.3)",
           }}
         >
-          <label
-            style={{
-              display: "block",
-              marginBottom: "0.5rem",
-              fontSize: "0.9rem",
-              color: "#94a3b8",
-            }}
-          >
-            Claude API Key（質疑応答用・Haiku使用で低コスト）
-          </label>
-          <input
-            type="password"
-            value={apiKey}
-            onChange={(e) => setApiKey(e.target.value)}
-            placeholder="sk-ant-..."
-            style={{
-              width: "100%",
-              padding: "12px 16px",
-              borderRadius: "8px",
-              border: "1px solid rgba(59, 130, 246, 0.3)",
-              background: "rgba(15, 23, 42, 0.8)",
-              color: "#e2e8f0",
-              fontSize: "1rem",
-              marginBottom: "1rem",
-              boxSizing: "border-box",
-            }}
-          />
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "#64748b",
-              marginBottom: "1.5rem",
-            }}
-          >
-            ※ APIキーはブラウザ内のみで使用し、サーバーに保存されません
-          </p>
-
           <div style={{ display: "flex", gap: "12px" }}>
             <button
-              onClick={() => {
-                if (!apiKey) {
-                  alert("APIキーを入力してください");
-                  return;
-                }
-                setMode("presentation");
-              }}
+              onClick={() => setMode("presentation")}
               style={{
                 flex: 1,
                 padding: "14px",
@@ -355,13 +311,7 @@ export default function PresenterPage() {
               ▶ プレゼン開始
             </button>
             <button
-              onClick={() => {
-                if (!apiKey) {
-                  alert("APIキーを入力してください");
-                  return;
-                }
-                setMode("qa");
-              }}
+              onClick={() => setMode("qa")}
               style={{
                 flex: 1,
                 padding: "14px",
@@ -399,10 +349,12 @@ export default function PresenterPage() {
           <iframe
             ref={iframeRef}
             src={isDemoSlide(currentSlide) ? DEMO_SLIDES[currentSlide] : `/presentation/demo_presentation_v2.html#/${currentSlide}`}
+            tabIndex={-1}
             style={{
               width: "100%",
               height: "100%",
               border: "none",
+              pointerEvents: mode === "qa" ? "none" : "auto",
             }}
           />
         </div>
