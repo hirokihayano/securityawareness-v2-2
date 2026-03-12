@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/(main)/layout,_N_T_/(main)/threats/layout,_N_T_/(main)/threats/page,_N_T_/threats"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/!KG1haW4p/threats/__PAGE__",
+    "/!KG1haW4p/threats",
+    "/!KG1haW4p",
+    "/_index",
+    "/_head"
+  ]
+}

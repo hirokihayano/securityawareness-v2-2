@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.ipa.go.jp)",
+      "WebFetch(domain:www.sans.org)",
+      "WebFetch(domain:www.knowbe4.com)",
+      "WebFetch(domain:www.soumu.go.jp)",
+      "WebFetch(domain:www.proofpoint.com)",
+      "WebFetch(domain:www.nict.go.jp)",
+      "Bash(rm:*)",
+      "WebFetch(domain:www.lrm.jp)"
+    ]
+  }
+}

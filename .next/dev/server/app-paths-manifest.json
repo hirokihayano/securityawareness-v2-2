@@ -1,0 +1,7 @@
+{
+  "/(main)/executive/page": "app/(main)/executive/page.js",
+  "/(main)/incidents/page": "app/(main)/incidents/page.js",
+  "/(main)/page": "app/(main)/page.js",
+  "/api/chat/route": "app/api/chat/route.js",
+  "/presenter/page": "app/presenter/page.js"
+}

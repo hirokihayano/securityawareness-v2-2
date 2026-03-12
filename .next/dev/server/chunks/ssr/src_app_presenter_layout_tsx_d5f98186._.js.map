@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/hayano_hiroki/project/securityawareness-v2-2/src/app/presenter/layout.tsx"],"sourcesContent":["export default function PresenterLayout({ children }: { children: React.ReactNode }) {\n  return (\n    <html lang=\"ja\">\n      <body style={{ margin: 0, padding: 0, background: '#0f172a' }}>\n        {children}\n      </body>\n    </html>\n  );\n}\n"],"names":[],"mappings":";;;;;;AAAe,SAAS,gBAAgB,EAAE,QAAQ,EAAiC;IACjF,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;YAAK,OAAO;gBAAE,QAAQ;gBAAG,SAAS;gBAAG,YAAY;YAAU;sBACzD;;;;;;;;;;;AAIT"}}]
+}

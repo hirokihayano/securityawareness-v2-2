@@ -1,0 +1,11 @@
+{
+  "/(main)/executive/page": "/executive",
+  "/(main)/incidents/page": "/incidents",
+  "/(main)/page": "/",
+  "/(main)/qa/page": "/qa",
+  "/(main)/threats/page": "/threats",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/chat/route": "/api/chat",
+  "/presenter/page": "/presenter"
+}
